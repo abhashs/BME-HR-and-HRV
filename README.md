@@ -1,47 +1,7 @@
-![Alt text](http://i.imgur.com/2ngZopS.jpg "Screenshot")
-
-webcam-pulse-detector
+Remote BPM and HRV Detection and Overlay
 -----------------------
 
-### - UPDATE: Now with Python 3.5+ and OpenCV 3.0+ support
-
-### Stand-alone (no dependancy) precompiled application:
-
- - Download for Windows 7 and 8: [webcam-pulse-detector_win.zip](http://sourceforge.net/projects/webcampulsedetector/files/webcam-pulse-detector_win.zip/download) (42 Mb) 
- - Download for Mac OSX 10.6 (and later): [webcam-pulse-detector_mac.zip](http://sourceforge.net/projects/webcampulsedetector/files/webcam-pulse-detector_mac.zip/download) (21 Mb)
- - Debian/Ubuntu/Mint Linux: Coming very soon. For now, it is recommended that you run from source on the `no_openmdao` branch if you just want to test things out.
-
-The application can be run by simply executing the binary contained in the zip file for your platform.
-This code can also be run from source by following the instructions below.
-
----------------------------------------
-
-A python code that detects the heart-rate of an individual using a common webcam or network IP camera. 
-Tested on OSX, Ubuntu, and Windows.
-
-How it works:
------------------
-This application uses [OpenCV](http://opencv.org/) to find the location of the user's face, then isolate the forehead region. Data is collected
-from this location over time to estimate the user's heart rate. This is done by measuring average optical
-intensity in the forehead location, in the subimage's green channel alone (a better color mixing ratio may exist, but the 
-blue channel tends to be very noisy). Physiological data can be estimated this way thanks to the optical absorption 
-characteristics of (oxy-) haemoglobin (see http://www.opticsinfobase.org/oe/abstract.cfm?uri=oe-16-26-21434). 
-
-With good lighting and minimal noise due to motion, a stable heartbeat should be 
-isolated in about 15 seconds. Other physiological waveforms (such as 
-[Mayer waves](http://en.wikipedia.org/wiki/Mayer_waves)) should also be visible in the raw data stream.
-
-Once the user's heart rate has been estimated, real-time phase variation associated with this 
-frequency is also computed. This allows for the heartbeat to be exaggerated in the post-process frame rendering, 
-causing the highlighted forehead location to pulse in sync with the user's own heartbeat.
-
-Support for detection on multiple simultaneous individuals in a single camera's 
-image stream is definitely possible, but at the moment only the information from one face 
-is extracted for analysis.
-
-The overall dataflow/execution order for the real-time signal processing looks like:
-
-![Alt text](http://i.imgur.com/xS7O8U3.png "Signal processing")
+Extension of [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector), provides an additional GUI overlay with virtual camera, as well as HRV estimations.
 
 
 Requirements:
@@ -50,25 +10,15 @@ Requirements:
 - [Python v2.7 or v3.5+)](http://python.org/)
 - [OpenCV v2+](http://opencv.org/)
 - Numpy, Scipy
+- pyvirtualcam
 
 Quickstart:
 ------------
 
-- run get_pulse.py to start the application
+- run `get_pulse.py` to start the application
 
 ```
 python get_pulse.py
-```
-
-- To run on an IP camera, set the `url`, `user`, and `password` strings on line 134 of `get_pulse_ipcam.py`, then run:
-
-```
-python get_pulse_ipcam.py
-```
-This was tested on a Wowwee Rovio.
-
-- If there is an error, try running `test_webcam.py` in the same directory to check if your openCV installation and webcam can be made to work
-with this application.
 
 Usage notes:
 ----------
